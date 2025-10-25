@@ -29,7 +29,7 @@ object ConsulServiceRegistry {
             // Note: For Docker, use the service's container name or IP, not localhost.
             // For local dev, localhost is fine. We will address Docker networking later.
             .address("127.0.0.1")
-            .check(Registration.RegCheck.http("[http://127.0.0.1](http://127.0.0.1):$port/health", 10L, 1L))
+            .check(Registration.RegCheck.http("http://127.0.0.1:$port/health", 10L, 1L))
             .build()
 
         consulClient.agentClient().register(registration)

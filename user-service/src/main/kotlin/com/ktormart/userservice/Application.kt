@@ -11,6 +11,11 @@ import io.ktor.server.netty.EngineMain
 fun main(args: Array<String>): Unit = EngineMain.main(args)
 
 fun Application.module() {
+
+    // Configure Ktor plugins
+    configureSerialization()
+    configureRouting()
+
     val port = environment.config.property("ktor.deployment.port").getString().toInt()
     // Initialize database connection
 
@@ -26,7 +31,4 @@ fun Application.module() {
     val consulConfig = ConsulConfiguration(environment.config)
     DatabaseFactory.init(consulConfig)
 
-    // Configure Ktor plugins
-    configureSerialization()
-    configureRouting()
 }

@@ -11,12 +11,11 @@ import org.jetbrains.exposed.v1.jdbc.insert
 
 fun Application.configureRouting() {
     routing {
+        // Health check endpoint for Consul
+        get("/health") {
+            call.respond(HttpStatusCode.OK, "Healthy")
+        }
         route("/users") {
-
-            // Health check endpoint for Consul
-            get("/health") {
-                call.respond(HttpStatusCode.OK, "Healthy")
-            }
 
             post("/register") {
                 val request = call.receive<UserRegisterRequest>()
