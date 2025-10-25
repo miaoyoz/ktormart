@@ -19,7 +19,6 @@ dependencies {
 
     // Logging
     implementation(libs.logback.classic)
-    implementation(libs.ktor.server.callLogging)
 
     // Database with Exposed
     implementation(libs.exposed.core)

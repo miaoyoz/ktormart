@@ -5,7 +5,7 @@ plugins {
 }
 
 application {
-    mainClass.set("io.ktor.server.netty.EngineMain")
+    mainClass.set("com.ktormart.gateway.ApplicationKt")
 }
 
 dependencies {
@@ -25,7 +25,6 @@ dependencies {
 
     // Logging
     implementation(libs.logback.classic)
-    implementation(libs.ktor.server.callLogging)
 
     // Consul
     implementation(libs.consul.client)

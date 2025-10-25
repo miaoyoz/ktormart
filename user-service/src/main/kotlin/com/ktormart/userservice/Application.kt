@@ -8,26 +8,34 @@ import com.ktormart.userservice.plugins.configureSerialization
 import io.ktor.server.application.*
 import io.ktor.server.netty.EngineMain
 
+/**
+ * 应用程序入口点
+ */
 fun main(args: Array<String>): Unit = EngineMain.main(args)
 
+/**
+ * 主模块配置函数
+ * 负责初始化所有必要的插件和服务
+ */
 fun Application.module() {
 
-    // Configure Ktor plugins
+    // 配置 Ktor 插件
     configureSerialization()
     configureRouting()
 
+    // 获取服务端口
     val port = environment.config.property("ktor.deployment.port").getString().toInt()
-    // Initialize database connection
 
-    // Initialize Consul registry
+    // 初始化 Consul 服务注册
     ConsulServiceRegistry.init(environment.config)
     ConsulServiceRegistry.register(port)
 
-    // Add a shutdown hook to deregister the service
+    // 添加关闭钩子，在应用停止时注销服务
     monitor.subscribe(ApplicationStopping) {
         ConsulServiceRegistry.deregister()
     }
-    // Create the Consul configuration source
+
+    // 创建 Consul 配置源并初始化数据库连接
     val consulConfig = ConsulConfiguration(environment.config)
     DatabaseFactory.init(consulConfig)
 
