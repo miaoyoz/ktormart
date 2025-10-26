@@ -6,6 +6,7 @@ exposed = "1.0.0-rc-2"
 postgresql = "42.7.3"
 hikari = "4.0.3"
 consul = "1.5.3"
+resilience4j = "2.2.0"
 
 
 [libraries]
@@ -14,7 +15,8 @@ ktor-server-core = { module = "io.ktor:ktor-server-core-jvm", version.ref = "kto
 ktor-server-netty = { module = "io.ktor:ktor-server-netty", version.ref = "ktor" }
 ktor-server-contentNegotiation = { module = "io.ktor:ktor-server-content-negotiation-jvm", version.ref = "ktor" }
 ktor-serialization-json = { module = "io.ktor:ktor-serialization-kotlinx-json-jvm", version.ref = "ktor" }
-ktor-server-tests = { module = "io.ktor:ktor-server-tests-host", version.ref = "ktor" }
+ktor-server-tests = { module = "io.ktor:ktor-server-test-host", version.ref = "ktor" }
+ktor-server-call-logging = { module = "io.ktor:ktor-server-call-logging-jvm", version.ref = "ktor" }
 
 # Ktor Client
 ktor-client-core = { module = "io.ktor:ktor-client-core-jvm", version.ref = "ktor" }
@@ -37,6 +39,10 @@ kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test", version.ref =
 
 # Consul
 consul-client = { group = "com.orbitz.consul", name = "consul-client", version.ref = "consul" }
+
+# Resilience4j
+resilience4j-circuit-breaker = { module = "io.github.resilience4j:resilience4j-circuitbreaker", version.ref = "resilience4j" }
+resilience4j-kotlin = { module = "io.github.resilience4j:resilience4j-kotlin", version.ref = "resilience4j" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

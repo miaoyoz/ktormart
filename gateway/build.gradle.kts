@@ -25,7 +25,12 @@ dependencies {
 
     // Logging
     implementation(libs.logback.classic)
+    implementation(libs.ktor.server.call.logging)
 
     // Consul
     implementation(libs.consul.client)
+
+    // Resilience4j
+    implementation(libs.resilience4j.circuit.breaker)
+    implementation(libs.resilience4j.kotlin)
 }

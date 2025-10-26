@@ -7,6 +7,7 @@ import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import kotlinx.coroutines.delay
 import org.jetbrains.exposed.v1.exceptions.ExposedSQLException
 import org.jetbrains.exposed.v1.jdbc.insert
 
@@ -26,6 +27,7 @@ fun Application.configureRouting() {
 
             // 用户注册端点
             post("/register") {
+                delay(100000) // 模拟延迟，用于测试网关超时和熔断器功能
                 val request = call.receive<UserRegisterRequest>()
 
                 // 简单的密码验证
