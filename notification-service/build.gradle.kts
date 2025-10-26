@@ -5,7 +5,7 @@ plugins {
 }
 
 application {
-    mainClass.set("com.ktormart.n.ApplicationKt")
+    mainClass.set("com.ktormart.notificationservice.ApplicationKt")
 }
 
 dependencies {
@@ -13,24 +13,12 @@ dependencies {
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.server.netty)
 
-    // Ktor Client
-    implementation(libs.ktor.client.core)
-    implementation(libs.ktor.client.cio)
-    implementation(libs.ktor.client.content.negotiation)
-    implementation(libs.ktor.serialization.kotlinx.json)
-
-    // Content Negotiation for JSON
-    implementation(libs.ktor.server.contentNegotiation)
-    implementation(libs.ktor.serialization.json)
-
     // Logging
     implementation(libs.logback.classic)
-    implementation(libs.ktor.server.call.logging)
 
-    // Consul
-    implementation(libs.consul.client)
+    //  RabbitMQ Client
+    implementation(libs.rabbitmq.client)
 
-    // Resilience4j
-    implementation(libs.resilience4j.circuit.breaker)
-    implementation(libs.resilience4j.kotlin)
+    // Kotlinx Serialization for parsing event messages
+    implementation(libs.kotlinx.serialization.json)
 }

@@ -35,4 +35,10 @@ dependencies {
     testImplementation(libs.ktor.server.tests)
     testImplementation(libs.kotlin.test.junit)
 
+    //  RabbitMQ Client
+    implementation(libs.rabbitmq.client)
+
+    // Kotlinx Serialization for parsing event messages
+    implementation(libs.kotlinx.serialization.json)
+
 }

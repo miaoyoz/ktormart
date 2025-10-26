@@ -5,6 +5,7 @@ import com.ktormart.userservice.db.DatabaseFactory
 import com.ktormart.userservice.discovery.ConsulServiceRegistry
 import com.ktormart.userservice.plugins.configureRouting
 import com.ktormart.userservice.plugins.configureSerialization
+import com.ktormart.userservice.rabbitmq.EventProducer
 import io.ktor.server.application.*
 import io.ktor.server.netty.EngineMain
 
@@ -33,6 +34,14 @@ fun Application.module() {
     // 添加关闭钩子，在应用停止时注销服务
     monitor.subscribe(ApplicationStopping) {
         ConsulServiceRegistry.deregister()
+    }
+
+    // Initialize RabbitMQ producer
+    EventProducer.init(environment.config)
+
+    monitor.subscribe(ApplicationStopping) {
+        ConsulServiceRegistry.deregister()
+        EventProducer.close() // Close connection on shutdown
     }
 
     // 创建 Consul 配置源并初始化数据库连接

@@ -1,7 +1,9 @@
 package com.ktormart.userservice.plugins
 
 import com.ktormart.userservice.db.DatabaseFactory.dbQuery
+import com.ktormart.userservice.events.UserRegisteredEvent
 import com.ktormart.userservice.models.*
+import com.ktormart.userservice.rabbitmq.EventProducer
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
@@ -27,7 +29,7 @@ fun Application.configureRouting() {
 
             // 用户注册端点
             post("/register") {
-                delay(100000) // 模拟延迟，用于测试网关超时和熔断器功能
+//                delay(100000) // 模拟延迟，用于测试网关超时和熔断器功能
                 val request = call.receive<UserRegisterRequest>()
 
                 // 简单的密码验证
@@ -53,6 +55,8 @@ fun Application.configureRouting() {
                         username = request.username,
                         email = request.email
                     )
+                    val event = UserRegisteredEvent(response.id, response.username, response.email)
+                    EventProducer.publish(event)
                     call.respond(HttpStatusCode.Created, response)
 
                 } catch (e: ExposedSQLException) {
